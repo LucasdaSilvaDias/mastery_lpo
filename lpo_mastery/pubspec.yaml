@@ -1,0 +1,56 @@
+name: lpo_mastery
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  supabase_flutter: ^1.10.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  flutter_flavorizr: ^2.4.1
+
+flutter:
+  uses-material-design: true
+
+flavorizr:
+  app:
+    android:
+      flavorDimensions: "flavor-type"
+    ios:
+      targets:
+        Runner:
+          bundleId: "com.mastery.lpo"
+  flavors:
+    dev:
+      app:
+        name: "Mastery LPO (Dev)"
+        icon: "assets/icons/dev_icon.png"
+      android:
+        applicationId: "com.mastery.lpo.dev"
+      ios:
+        bundleId: "com.mastery.lpo.dev"
+      env:
+        SUPABASE_URL: "https://nsmhpyzqfacjznorstea.supabase.co"
+        SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zbWhweXpxZmFjanpub3JzdGVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwNjY4MjQsImV4cCI6MjA2NDY0MjgyNH0.LG63kdtE62DvNl048T6rYCxQhQRgvqZyOStBsUquqg4"
+    prod:
+      app:
+        name: "Mastery LPO"
+        icon: "assets/icons/prod_icon.png"
+      android:
+        applicationId: "com.mastery.lpo"
+      ios:
+        bundleId: "com.mastery.lpo"
+      env:
+        SUPABASE_URL: "https://SEU-URL-PROD.supabase.co"
+        SUPABASE_ANON_KEY: "CHAVE_ANON_PROD"
