@@ -70,10 +70,10 @@ Dias dentro de um treino.
 
 ### workout_items
 
-Exercícios dentro de cada dia de treino.
+Exercícios dentro de cada bloco de treino.
 
 - id
-- workout_day_id
+- workout_block_id
 - exercise_id
 - sets
 - reps
@@ -81,6 +81,7 @@ Exercícios dentro de cada dia de treino.
 - notes
 - order_index
 - created_at
+- selected_video_id
 
 ### workout_logs
 
@@ -119,3 +120,35 @@ Resultados dos desafios.
 - result_value
 - notes
 - created_at    
+
+- O atleta pode escolher qual nível de treino deseja fazer no dia: iniciante, intermediário, avançado ou master.
+- O nível do atleta no perfil será apenas uma preferência inicial, não uma limitação.
+- O sistema registra qual nível foi escolhido em cada treino realizado.
+
+### workout_blocks
+
+Blocos dentro de cada dia de treino.
+
+- id
+- workout_day_id
+- title
+- description
+- order_index
+- created_at
+
+### exercise_videos
+
+Vídeos vinculados aos exercícios.
+
+- id
+- exercise_id
+- title
+- video_url
+- description
+- video_type
+- created_at
+
+- O treinador pode cadastrar vários vídeos por exercício.
+- O atleta não visualiza todos os vídeos da biblioteca.
+- Em cada exercício do treino, o treinador escolhe qual vídeo será mostrado para o atleta.
+- O vídeo exibido ao atleta é o vídeo vinculado ao item do treino.

@@ -23,6 +23,7 @@
 - [ ] Registrar RPE
 - [ ] Registrar observações
 - [ ] Marcar treino concluído
+- [ ] Escolher nível do treino do dia
 
 ### Evolução
 
@@ -58,3 +59,4 @@
 - Recebe treino personalizado.
 - Pode ter cobrança extra.
 - Pode focar em uma técnica específica, como Snatch, Clean, Jerk, mobilidade ou força.
+
