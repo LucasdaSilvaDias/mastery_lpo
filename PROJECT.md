@@ -62,3 +62,19 @@ Pode:
 - PostgreSQL
 - Tailwind CSS
 - shadcn/ui
+
+## Níveis de atleta
+
+O Mastery LPO terá quatro níveis de atleta:
+
+### Iniciante
+Atleta novo no LPO, focado em aprender técnica, posições, mobilidade e padrões básicos.
+
+### Intermediário
+Atleta que já conhece os movimentos principais e começa a trabalhar cargas, consistência e variações.
+
+### Avançado
+Atleta com boa base técnica, maior volume de treino e foco em performance.
+
+### Master
+Atleta experiente, com treinos mais específicos, controle maior de carga, intensidade e evolução.
