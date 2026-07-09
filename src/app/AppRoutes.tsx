@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { DashboardPage } from '../features/dashboard/pages/DashboardPage'
 import { LoginPage } from '../features/auth/pages/LoginPage'
 import { RegisterPage } from '../features/auth/pages/RegisterPage'
+import { ProtectedRoute } from '../routes/ProtectedRoute'
 
 export function AppRoutes() {
   return (
@@ -13,7 +14,14 @@ export function AppRoutes() {
 
         <Route path="/register" element={<RegisterPage />} />
 
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <DashboardPage />
+    </ProtectedRoute>
+  }
+/>
 
       </Routes>
     </BrowserRouter>
