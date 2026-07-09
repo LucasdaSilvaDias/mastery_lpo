@@ -23,6 +23,11 @@ export async function createWorkoutWeek() {
   const weekStart = monday.toISOString().split('T')[0]
   const weekEnd = sunday.toISOString().split('T')[0]
 
+  const { data: userData, error: userError } = await supabase.auth.getUser()
+
+  if (userError) throw userError
+  if (!userData.user) throw new Error('Usuário não autenticado.')
+
   const { data, error } = await supabase
     .from('workout_weeks')
     .insert({
@@ -30,6 +35,7 @@ export async function createWorkoutWeek() {
       week_start: weekStart,
       week_end: weekEnd,
       status: 'draft',
+      created_by: userData.user.id,
     })
     .select()
     .single()

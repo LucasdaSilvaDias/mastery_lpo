@@ -4,6 +4,9 @@ import { LoginPage } from '../features/auth/pages/LoginPage'
 import { RegisterPage } from '../features/auth/pages/RegisterPage'
 import { ProtectedRoute } from '../routes/ProtectedRoute'
 import { TrainerDashboardPage } from '../features/trainer/pages/TrainerDashboardPage'
+import { WorkoutWeekEditorPage } from '../features/trainer/pages/WorkoutWeekEditorPage'
+
+
 
 export function AppRoutes() {
   return (
@@ -32,7 +35,14 @@ export function AppRoutes() {
     </ProtectedRoute>
   }
 />
-
+<Route
+  path="/trainer/weeks/:weekId"
+  element={
+    <ProtectedRoute>
+      <WorkoutWeekEditorPage />
+    </ProtectedRoute>
+  }
+/>
       </Routes>
     </BrowserRouter>
   )
