@@ -3,11 +3,21 @@ import { DashboardPage } from '../features/dashboard/pages/DashboardPage'
 import { LoginPage } from '../features/auth/pages/LoginPage'
 import { RegisterPage } from '../features/auth/pages/RegisterPage'
 import { ProtectedRoute } from '../routes/ProtectedRoute'
+import { TrainerDashboardPage } from '../features/trainer/pages/TrainerDashboardPage'
 
 export function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route
+  path="/trainer"
+  element={
+    <ProtectedRoute>
+      <TrainerDashboardPage />
+    </ProtectedRoute>
+  }
+/>
+
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         <Route path="/login" element={<LoginPage />} />
