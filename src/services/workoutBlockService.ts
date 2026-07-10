@@ -6,6 +6,8 @@ export type WorkoutBlock = {
   title: string
   description: string | null
   order_index: number
+
+  
 }
 
 export async function getWorkoutBlocksByWeek(weekId: string) {
@@ -23,7 +25,10 @@ export async function getWorkoutBlocksByWeek(weekId: string) {
   return data as WorkoutBlock[]
 }
 
-export async function createWorkoutBlock(workoutDayId: string, orderIndex: number) {
+export async function createWorkoutBlock(
+  workoutDayId: string,
+  orderIndex: number,
+) {
   const { data, error } = await supabase
     .from('workout_blocks')
     .insert({
@@ -31,6 +36,22 @@ export async function createWorkoutBlock(workoutDayId: string, orderIndex: numbe
       title: 'Novo bloco',
       order_index: orderIndex,
     })
+    .select('*')
+    .single()
+
+  if (error) throw error
+
+  return data as WorkoutBlock
+}
+
+export async function updateWorkoutBlockTitle(
+  blockId: string,
+  title: string,
+) {
+  const { data, error } = await supabase
+    .from('workout_blocks')
+    .update({ title })
+    .eq('id', blockId)
     .select('*')
     .single()
 

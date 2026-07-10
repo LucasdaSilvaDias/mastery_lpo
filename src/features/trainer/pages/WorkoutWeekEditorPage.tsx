@@ -11,6 +11,7 @@ import {
 import {
   createWorkoutBlock,
   getWorkoutBlocksByWeek,
+  updateWorkoutBlockTitle,
   type WorkoutBlock,
 } from '../../../services/workoutBlockService'
 
@@ -20,9 +21,13 @@ export function WorkoutWeekEditorPage() {
   const [days, setDays] = useState<WorkoutDay[]>([])
   const [blocks, setBlocks] = useState<WorkoutBlock[]>([])
   const [isLoading, setIsLoading] = useState(true)
+
   const [creatingBlockForDayId, setCreatingBlockForDayId] = useState<
     string | null
   >(null)
+
+  const [editingBlockId, setEditingBlockId] = useState<string | null>(null)
+  const [editingTitle, setEditingTitle] = useState('')
 
   async function loadData() {
     if (!weekId) {
@@ -72,6 +77,37 @@ export function WorkoutWeekEditorPage() {
     } finally {
       setCreatingBlockForDayId(null)
     }
+  }
+
+  async function handleSaveBlockTitle(blockId: string) {
+    const title = editingTitle.trim()
+
+    if (!title) {
+      alert('Digite um nome para o bloco.')
+      return
+    }
+
+    try {
+      await updateWorkoutBlockTitle(blockId, title)
+
+      setEditingBlockId(null)
+      setEditingTitle('')
+
+      await loadData()
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        alert(error.message)
+      } else {
+        alert('Erro ao atualizar o bloco.')
+      }
+    }
+  }
+
+  function handleCancelEditing() {
+    setEditingBlockId(null)
+    setEditingTitle('')
   }
 
   useEffect(() => {
@@ -163,17 +199,64 @@ export function WorkoutWeekEditorPage() {
                             key={block.id}
                             className="rounded-2xl border border-[#262626] bg-[#0B0B0B] p-4"
                           >
-                            <div className="flex items-start justify-between gap-4">
+                            {editingBlockId === block.id ? (
+                              <div className="flex flex-col gap-3">
+                                <input
+                                  value={editingTitle}
+                                  onChange={(event) =>
+                                    setEditingTitle(event.target.value)
+                                  }
+                                  onKeyDown={(event) => {
+                                    if (event.key === 'Enter') {
+                                      void handleSaveBlockTitle(block.id)
+                                    }
+
+                                    if (event.key === 'Escape') {
+                                      handleCancelEditing()
+                                    }
+                                  }}
+                                  className="rounded-xl border border-[#262626] bg-[#171717] px-3 py-2 text-white outline-none focus:border-[#E5092F]"
+                                  autoFocus
+                                />
+
+                                <div className="flex gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      void handleSaveBlockTitle(block.id)
+                                    }
+                                    className="rounded-lg bg-[#E5092F] px-3 py-2 text-sm font-semibold"
+                                  >
+                                    Salvar
+                                  </button>
+
+                                  <button
+                                    type="button"
+                                    onClick={handleCancelEditing}
+                                    className="rounded-lg border border-[#262626] px-3 py-2 text-sm"
+                                  >
+                                    Cancelar
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
                               <div>
-                                <h3 className="font-semibold text-[#E5092F]">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setEditingBlockId(block.id)
+                                    setEditingTitle(block.title)
+                                  }}
+                                  className="text-left font-semibold text-[#E5092F] hover:underline"
+                                >
                                   {block.title}
-                                </h3>
+                                </button>
 
                                 <p className="mt-1 text-sm text-[#B3B3B3]">
                                   Bloco #{block.order_index}
                                 </p>
                               </div>
-                            </div>
+                            )}
                           </div>
                         ))}
                       </div>
